@@ -1,0 +1,8 @@
+{
+  "name": "AquivivirApp",
+  "description": "A modern and visually professional application for real estate agencies to manage property visits and internal notifications between administrators and workers.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ]
+}

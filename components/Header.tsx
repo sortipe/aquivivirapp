@@ -1,0 +1,10 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import React from 'react';
+import { BellIcon } from '@/components/icons/BellIcon';
+import { MenuIcon } from '@/components/icons/MenuIcon';
+
+const Header = ({ currentUser, onLogout, unreadCount, onToggleNotifications, onToggleSidebar }) => {
+    return (_jsx("header", { className: "bg-white shadow-sm sticky top-0 z-30", children: _jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: _jsxs("div", { className: "flex justify-between items-center h-16", children: [_jsxs("div", { className: "flex items-center", children: [_jsx("button", { onClick: onToggleSidebar, className: "md:hidden p-2 rounded-md text-slate-500 hover:text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-orange-500", children: _jsx(MenuIcon, {}) }), _jsxs("h1", { className: "text-xl font-semibold text-slate-800 ml-2 md:ml-0", children: ["Bienvenido, ", (currentUser.name || 'Usuario').split(' ')[0]] })] }), _jsxs("div", { className: "flex items-center space-x-4", children: [_jsxs("button", { onClick: onToggleNotifications, className: "relative p-2 rounded-full text-slate-500 hover:text-slate-700 hover:bg-slate-100 focus:outline-none", children: [_jsx(BellIcon, {}), unreadCount > 0 && (_jsx("span", { className: "absolute top-0 right-0 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center", children: unreadCount }))] }), _jsx("div", { className: "relative", children: _jsx("span", { className: "inline-block h-8 w-8 rounded-full overflow-hidden bg-slate-100", children: _jsx("svg", { className: "h-full w-full text-slate-300", fill: "currentColor", viewBox: "0 0 24 24", children: _jsx("path", { d: "M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" }) }) }) }), _jsx("button", { onClick: onLogout, className: "text-sm font-medium text-slate-600 hover:text-orange-600", children: "Cerrar sesión" })] })] }) }) }));
+};
+
+export default Header;

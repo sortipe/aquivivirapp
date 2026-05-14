@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AquivivirApp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#F97316">
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Google+Sans+Text);
+    html {
+      font-family: 'Google Sans Text', 'Google Sans';
+      font-size: 14px;
+    }
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    #printable-container {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 800px; /* A standard width for PDF generation */
+    }
+    
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printable-container, #printable-container * {
+        visibility: visible;
+      }
+      #printable-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+      .break-before-page {
+        page-break-before: always;
+      }
+    }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "react/jsx-runtime": "https://aistudiocdn.com/react@^19.1.1/jsx-runtime",
+      "react/": "https://aistudiocdn.com/react@^19.1.1/",
+      "react": "https://aistudiocdn.com/react@^19.1.1",
+      "react-dom/client": "https://aistudiocdn.com/react-dom@^19.1.1/client",
+      "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+      "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2",
+      "leaflet": "https://esm.sh/leaflet@1.9.4",
+      "@/index": "./index.tsx",
+      "@/App": "./App.tsx",
+      "@/types": "./types.ts",
+      "@/constants": "./constants.ts",
+      "@/supabaseClient": "./supabaseClient.ts",
+      "@/data": "./data.ts",
+      "@/utils": "./utils.ts",
+      "@/components/Header": "./components/Header.tsx",
+      "@/components/PropertyList": "./components/PropertyList.tsx",
+      "@/components/PropertyDetails": "./components/PropertyDetails.tsx",
+      "@/components/VisitList": "./components/VisitList.tsx",
+      "@/components/AddVisitForm": "./components/AddVisitForm.tsx",
+      "@/components/NotificationPanel": "./components/NotificationPanel.tsx",
+      "@/components/Dashboard": "./components/Dashboard.tsx",
+      "@/components/PropertyForm": "./components/PropertyForm.tsx",
+      "@/components/ConfirmationModal": "./components/ConfirmationModal.tsx",
+      "@/components/MapSelector": "./components/MapSelector.tsx",
+      "@/components/StaticMapDisplay": "./components/StaticMapDisplay.tsx",
+      "@/components/AssignTaskForm": "./components/AssignTaskForm.tsx",
+      "@/components/VisitDetailsModal": "./components/VisitDetailsModal.tsx",
+      "@/components/Calendar": "./components/Calendar.tsx",
+      "@/components/AddVisitModal": "./components/AddVisitModal.tsx",
+      "@/components/EditVisitModal": "./components/EditVisitModal.tsx",
+      "@/components/Login": "./components/Login.tsx",
+      "@/components/ManageUsers": "./components/ManageUsers.tsx",
+      "@/components/UserForm": "./components/UserForm.tsx",
+      "@/components/TrainingCenter": "./components/TrainingCenter.tsx",
+      "@/components/AddResourceForm": "./components/AddResourceForm.tsx",
+      "@/components/ResourceViewersModal": "./components/ResourceViewersModal.tsx",
+      "@/components/ResourceViewerModal": "./components/ResourceViewerModal.tsx",
+      "@/components/CalendarActionModal": "./components/CalendarActionModal.tsx",
+      "@/components/AddEventModal": "./components/AddEventModal.tsx",
+      "@/components/AddEventForm": "./components/AddEventForm.tsx",
+      "@/components/AddTaskModal": "./components/AddTaskModal.tsx",
+      "@/components/AddTaskForm": "./components/AddTaskForm.tsx",
+      "@/components/CalendarItemDetailsModal": "./components/CalendarItemDetailsModal.tsx",
+      "@/components/EditTaskModal": "./components/EditTaskModal.tsx",
+      "@/components/EditTaskForm": "./components/EditTaskForm.tsx",
+      "@/components/EditEventModal": "./components/EditEventModal.tsx",
+      "@/components/EditEventForm": "./components/EditEventForm.tsx",
+      "@/components/PrintablePropertyReport": "./components/PrintablePropertyReport.tsx",
+      "@/components/CaptacionesList": "./components/CaptacionesList.tsx",
+      "@/components/CaptacionForm": "./components/CaptacionForm.tsx",
+      "@/components/CaptacionDetails": "./components/CaptacionDetails.tsx",
+      "@/components/PrintableCaptacionReport": "./components/PrintableCaptacionReport.tsx",
+      "@/components/Reports": "./components/Reports.tsx",
+      "@/components/Settings": "./components/Settings.tsx",
+      "@/components/Formatos": "./components/Formatos.tsx",
+      "@/components/AddFormatForm": "./components/AddFormatForm.tsx",
+      "@/components/NetworkErrorOverlay": "./components/NetworkErrorOverlay.tsx",
+      "@/components/DownloadReportModal": "./components/DownloadReportModal.tsx",
+      "@/components/DownloadLinkModal": "./components/DownloadLinkModal.tsx",
+      "@/components/ScheduleVisitModal": "./components/ScheduleVisitModal.tsx",
+      "@/components/ScheduleVisitForm": "./components/ScheduleVisitForm.tsx",
+      "@/components/BinnacleView": "./components/BinnacleView.tsx",
+      "@/components/FileUploadWarningModal": "./components/FileUploadWarningModal.tsx",
+      "@/components/icons/CalendarIcon": "./components/icons/CalendarIcon.tsx",
+      "@/components/icons/ClockIcon": "./components/icons/ClockIcon.tsx",
+      "@/components/icons/LocationIcon": "./components/icons/LocationIcon.tsx",
+      "@/components/icons/BellIcon": "./components/icons/BellIcon.tsx",
+      "@/components/icons/CloseIcon": "./components/icons/CloseIcon.tsx",
+      "@/components/icons/BuildingOfficeIcon": "./components/icons/BuildingOfficeIcon.tsx",
+      "@/components/icons/ClipboardDocumentListIcon": "./components/icons/ClipboardDocumentListIcon.tsx",
+      "@/components/icons/CalendarDaysIcon": "./components/icons/CalendarDaysIcon.tsx",
+      "@/components/icons/PlusIcon": "./components/icons/PlusIcon.tsx",
+      "@/components/icons/PencilIcon": "./components/icons/PencilIcon.tsx",
+      "@/components/icons/TrashIcon": "./components/icons/TrashIcon.tsx",
+      "@/components/icons/PhotoIcon": "./components/icons/PhotoIcon.tsx",
+      "@/components/icons/MapPinIcon": "./components/icons/MapPinIcon.tsx",
+      "@/components/icons/LocationMarkerIcon": "./components/icons/LocationMarkerIcon.tsx",
+      "@/components/icons/DocumentIcon": "./components/icons/DocumentIcon.tsx",
+      "@/components/icons/SearchIcon": "./components/icons/SearchIcon.tsx",
+      "@/components/icons/ArrowLeftIcon": "./components/icons/ArrowLeftIcon.tsx",
+      "@/components/icons/ArrowTopRightOnSquareIcon": "./components/icons/ArrowTopRightOnSquareIcon.tsx",
+      "@/components/icons/ClipboardCheckIcon": "./components/icons/ClipboardCheckIcon.tsx",
+      "@/components/icons/CheckCircleIcon": "./components/icons/CheckCircleIcon.tsx",
+      "@/components/icons/UserIcon": "./components/icons/UserIcon.tsx",
+      "@/components/icons/ChevronLeftIcon": "./components/icons/ChevronLeftIcon.tsx",
+      "@/components/icons/ChevronRightIcon": "./components/icons/ChevronRightIcon.tsx",
+      "@/components/icons/MenuIcon": "./components/icons/MenuIcon.tsx",
+      "@/components/icons/UsersIcon": "./components/icons/UsersIcon.tsx",
+      "@/components/icons/ChartPieIcon": "./components/icons/ChartPieIcon.tsx",
+      "@/components/icons/CogIcon": "./components/icons/CogIcon.tsx",
+      "@/components/icons/AcademicCapIcon": "./components/icons/AcademicCapIcon.tsx",
+      "@/components/icons/EyeIcon": "./components/icons/EyeIcon.tsx",
+      "@/components/icons/VideoCameraIcon": "./components/icons/VideoCameraIcon.tsx",
+      "@/components/icons/DocumentTextIcon": "./components/icons/DocumentTextIcon.tsx",
+      "@/components/icons/LinkIcon": "./components/icons/LinkIcon.tsx",
+      "@/components/icons/BookmarkIcon": "./components/icons/BookmarkIcon.tsx",
+      "@/components/icons/DownloadIcon": "./components/icons/DownloadIcon.tsx",
+      "@/components/icons/DocumentDownloadIcon": "./components/icons/DocumentDownloadIcon.tsx",
+      "@/components/icons/DocumentArrowDownIcon": "./components/icons/DocumentArrowDownIcon.tsx",
+      "@/components/icons/ClipboardDocumentCheckIcon": "./components/icons/ClipboardDocumentCheckIcon.tsx",
+      "@/components/icons/TagIcon": "./components/icons/TagIcon.tsx",
+      "@/components/icons/ViewGridIcon": "./components/icons/ViewGridIcon.tsx",
+      "@/components/icons/ViewListIcon": "./components/icons/ViewListIcon.tsx",
+      "@/components/icons/ExclamationTriangleIcon": "./components/icons/ExclamationTriangleIcon.tsx",
+      "@/components/icons/PaperClipIcon": "./components/icons/PaperClipIcon.tsx"
+    }
+  }
+  </script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-slate-100">
+  <div id="root"></div>
+  <div id="printable-container"></div>
+  <script type="module" src="./index.tsx"></script>
+  <!-- <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then(registration => {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, err => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+  </script> -->
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
